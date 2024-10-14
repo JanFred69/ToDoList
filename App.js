@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Modal, Button, Switch, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-// Define Light and Dark Themes
 const LightTheme = {
   background: '#fff',
   text: '#333',
@@ -15,13 +14,11 @@ const DarkTheme = {
   taskBackground: '#1f1f1f',
 };
 
-// Create a Theme Context for switching themes
 const ThemeContext = React.createContext();
 
-// TaskItem Component: Render each task
 const TaskItem = ({ task, onComplete, onDelete, onEdit }) => {
-  const { darkMode } = useContext(ThemeContext); // Get current theme mode
-  const theme = darkMode ? DarkTheme : LightTheme; // Apply appropriate theme
+  const { darkMode } = useContext(ThemeContext);
+  const theme = darkMode ? DarkTheme : LightTheme;
 
   return (
     <View style={[styles.taskContainer, { backgroundColor: theme.taskBackground }]}>
@@ -45,7 +42,6 @@ const TaskItem = ({ task, onComplete, onDelete, onEdit }) => {
   );
 };
 
-// TaskList Component: Render the list of tasks
 const TaskList = ({ tasks, onComplete, onDelete, onEdit }) => {
   return (
     <FlatList
@@ -63,7 +59,6 @@ const TaskList = ({ tasks, onComplete, onDelete, onEdit }) => {
   );
 };
 
-// AddTaskModal Component: Modal to add or edit tasks
 const AddTaskModal = ({ visible, taskToEdit, onAddTask, onClose, isEdit }) => {
   const [taskTitle, setTaskTitle] = useState(taskToEdit ? taskToEdit.title : '');
 
@@ -92,13 +87,13 @@ const AddTaskModal = ({ visible, taskToEdit, onAddTask, onClose, isEdit }) => {
   );
 };
 
-// HomeScreen Component: Main screen with task list, theme switcher, delete, and edit functionality
+// HomeScreen Component
 const HomeScreen = () => {
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState(null); // For editing tasks
-  const [isEdit, setIsEdit] = useState(false); // Flag to determine if it's an edit mode
-  const { darkMode, setDarkMode } = useContext(ThemeContext); // Theme switching
+  const [taskToEdit, setTaskToEdit] = useState(null); 
+  const [isEdit, setIsEdit] = useState(false); 
+  const { darkMode, setDarkMode } = useContext(ThemeContext); 
 
   const addTask = (taskTitle) => {
     if (isEdit && taskToEdit) {
@@ -125,7 +120,7 @@ const HomeScreen = () => {
     setShowModal(true);
   };
 
-  const theme = darkMode ? DarkTheme : LightTheme; // Apply theme
+  const theme = darkMode ? DarkTheme : LightTheme; 
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -153,7 +148,7 @@ const HomeScreen = () => {
 
 // Main App Component
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false); // Manage theme state
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
